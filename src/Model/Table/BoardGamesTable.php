@@ -63,6 +63,18 @@ class BoardGamesTable extends Table
         ]);
     }
 
+    public function beforeSave(EventInterface $event, $entity, $options)
+    {
+        if ($entity->isNew() && !$entity->slug) {
+            $sluggedTitle = Text::slug($entity->title);
+            // trim slug to maximum length defined in schema
+            $entity->slug =  strtolower(substr($sluggedTitle, 0, 191));
+
+            // Revalidate after setting the slug
+            $this->getValidator()->validate($entity);
+        }
+    }
+
     /**
      * Default validation rules.
      *
@@ -81,12 +93,13 @@ class BoardGamesTable extends Table
             ->requirePresence('title', 'create')
             ->notEmptyString('title');
 
-        $validator
-            ->scalar('slug')
-            ->maxLength('slug', 191)
-            ->requirePresence('slug', 'create')
-            ->notEmptyString('slug')
-            ->add('slug', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+        // TODO: Look into how to validate slug after beforeSave
+        // $validator
+        //     ->scalar('slug')
+        //     ->maxLength('slug', 191)
+        //     ->requirePresence('slug', 'create')
+        //     ->notEmptyString('slug')
+        //     ->add('slug', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('publisher')
