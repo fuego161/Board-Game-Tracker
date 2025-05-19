@@ -6,18 +6,22 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * User Entity
+ * BoardGame Entity
  *
  * @property int $id
- * @property string $username
- * @property string $email
- * @property string $password
+ * @property int|null $entry_creator
+ * @property string $title
+ * @property string $slug
+ * @property string $publisher
+ * @property int $min_players
+ * @property int $max_players
  * @property \Cake\I18n\DateTime $created
  * @property \Cake\I18n\DateTime $modified
  *
- * @property \App\Model\Entity\BoardGame[] $board_games
+ * @property \App\Model\Entity\Category[] $categories
+ * @property \App\Model\Entity\User[] $users
  */
-class User extends Entity
+class BoardGame extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -29,20 +33,15 @@ class User extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
-        'username' => true,
-        'email' => true,
-        'password' => true,
+        'entry_creator' => true,
+        'title' => true,
+        'slug' => true,
+        'publisher' => true,
+        'min_players' => true,
+        'max_players' => true,
         'created' => true,
         'modified' => true,
-        'board_games' => true,
-    ];
-
-    /**
-     * Fields that are excluded from JSON versions of the entity.
-     *
-     * @var list<string>
-     */
-    protected array $_hidden = [
-        'password',
+        'categories' => true,
+        'users' => true,
     ];
 }
