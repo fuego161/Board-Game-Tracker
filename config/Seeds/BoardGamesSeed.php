@@ -9,6 +9,13 @@ use Migrations\BaseSeed;
  */
 class BoardGamesSeed extends BaseSeed
 {
+    public function getDependencies(): array
+    {
+        return [
+            'UsersSeed',
+        ];
+    }
+
     /**
      * Run Method.
      *
