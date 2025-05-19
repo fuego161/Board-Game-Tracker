@@ -6,6 +6,7 @@ class BoardGamesController extends AppController
 {
     public function index()
     {
+        $this->viewBuilder()->setLayout('board-games');
         $boardGames = $this->paginate($this->BoardGames);
 
         $this->set(compact('boardGames'));
