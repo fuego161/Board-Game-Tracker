@@ -4,6 +4,12 @@ namespace App\Controller;
 
 class BoardGamesController extends AppController
 {
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        $this->Authentication->addUnauthenticatedActions(['index', 'view']);
+    }
+
     public function index()
     {
         $boardGames = $this->paginate($this->BoardGames->find()->contain('Categories'));
