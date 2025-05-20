@@ -65,14 +65,28 @@ class BoardGamesTable extends Table
 
     public function beforeSave(EventInterface $event, $entity, $options)
     {
+        if ($entity->categories) {
+            $entity->category_string = $this->_buildCatString($entity->categories);
+        }
+
         if ($entity->isNew() && !$entity->slug) {
             $sluggedTitle = Text::slug($entity->title);
             // trim slug to maximum length defined in schema
             $entity->slug =  strtolower(substr($sluggedTitle, 0, 191));
-
-            // Revalidate after setting the slug
-            $this->getValidator()->validate($entity);
         }
+    }
+
+    protected function _buildCatString($categories)
+    {
+        $selectedCats = [];
+
+        // Loop all selected cats and get their titles
+        foreach ($categories as $category) {
+            ['title' => $title] = $category;
+            $selectedCats[] = $title;
+        }
+
+        return implode(', ', $selectedCats);
     }
 
     /**

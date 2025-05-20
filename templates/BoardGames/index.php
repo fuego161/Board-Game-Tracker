@@ -6,8 +6,10 @@
         <th>Title</th>
         <th>Publisher</th>
         <th>Player Count</th>
-        <td>&nbsp;</td>
+        <th>Categories</th>
+        <th>&nbsp;</th>
     </tr>
+
 
     <?php foreach ($boardGames as $boardGame): ?>
         <tr>
@@ -19,6 +21,9 @@
             </td>
             <td>
                 <?= h($boardGame->min_players) . ' - ' . h($boardGame->max_players); ?>
+            </td>
+            <td>
+                <?= h($boardGame->category_string); ?>
             </td>
             <td class="collection-add-row">
                 <?= $this->Html->link(
@@ -38,6 +43,7 @@
                 ['class' => 'button']
             ); ?>
         </td>
+        <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>

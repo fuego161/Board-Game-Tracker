@@ -6,14 +6,17 @@ class BoardGamesController extends AppController
 {
     public function index()
     {
-        $boardGames = $this->paginate($this->BoardGames);
+        $boardGames = $this->paginate($this->BoardGames->find()->contain('Categories'));
 
         $this->set(compact('boardGames'));
     }
 
     public function view($slug = null)
     {
-        $boardGame = $this->BoardGames->findBySlug($slug)->firstOrFail();
+        $boardGame = $this->BoardGames
+            ->findBySlug($slug)
+            ->contain('Categories')
+            ->firstOrFail();
 
         $this->set(compact('boardGame'));
     }
@@ -37,12 +40,17 @@ class BoardGamesController extends AppController
             $this->Flash->error(__('Unable to add board game'));
         }
 
-        $this->set(compact('boardGame'));
+        $categories = $this->BoardGames->Categories->find('list')->all();
+
+        $this->set(compact('boardGame', 'categories'));
     }
 
     public function edit($slug)
     {
-        $boardGame = $this->BoardGames->findBySlug($slug)->firstOrFail();
+        $boardGame = $this->BoardGames
+            ->findBySlug($slug)
+            ->contain('Categories')
+            ->firstOrFail();
 
         if ($this->request->is(['post', 'put'])) {
             $boardGame = $this->BoardGames->patchEntity($boardGame, $this->request->getData());
@@ -56,7 +64,8 @@ class BoardGamesController extends AppController
             $this->Flash->error(__('Unable to add board game'));
         }
 
-        $this->set(compact('boardGame'));
+        $categories = $this->BoardGames->Categories->find('list')->all();
+        $this->set(compact('boardGame', 'categories'));
     }
 
     public function delete($slug)

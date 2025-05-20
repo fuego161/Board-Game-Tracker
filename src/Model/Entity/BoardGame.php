@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\Collection\Collection;
 
 /**
  * BoardGame Entity
@@ -42,6 +44,29 @@ class BoardGame extends Entity
         'created' => true,
         'modified' => true,
         'categories' => true,
+        'category_string' => true,
         'users' => true,
     ];
+
+    /**
+     * Virtual field for category string
+     */
+    protected function _getCategoryString()
+    {
+        if (isset($this->_fields['category_string'])) {
+            return $this->_fields['category_string'];
+        }
+
+        if (empty($this->categories)) {
+            return '';
+        }
+
+        $categories = new Collection($this->categories);
+
+        $str = $categories->reduce(function ($string, $cat) {
+            return $string . $cat->title . ', ';
+        }, '');
+
+        return trim($str, ', ');
+    }
 }
