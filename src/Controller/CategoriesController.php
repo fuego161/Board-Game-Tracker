@@ -24,6 +24,7 @@ class CategoriesController extends AppController
      */
     public function index()
     {
+        $this->Authorization->skipAuthorization();
         $query = $this->Categories->find();
         $categories = $this->paginate($query);
 
@@ -39,6 +40,7 @@ class CategoriesController extends AppController
      */
     public function view($id = null)
     {
+        $this->Authorization->skipAuthorization();
         $category = $this->Categories->get($id, contain: ['BoardGames']);
         $this->set(compact('category'));
     }
@@ -74,6 +76,7 @@ class CategoriesController extends AppController
     public function edit($id = null)
     {
         $category = $this->Categories->get($id, contain: ['BoardGames']);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $category = $this->Categories->patchEntity($category, $this->request->getData());
             if ($this->Categories->save($category)) {
