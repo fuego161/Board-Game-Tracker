@@ -36,7 +36,7 @@
                 </tr>
             </table>
             <div class="related">
-                <h4><?= __('Related Board Games') ?></h4>
+                <h4><?= __('{0} Games', h($category->title)) ?></h4>
                 <?php if (!empty($category->board_games)) : ?>
                 <div class="table-responsive">
                     <table>

@@ -40,7 +40,7 @@
                 </tr>
             </table>
             <div class="related">
-                <h4><?= __('Related Board Games') ?></h4>
+                <h4><?= __('Saved Games') ?></h4>
                 <?php if (!empty($user->board_games)) : ?>
                 <div class="table-responsive">
                     <table>
