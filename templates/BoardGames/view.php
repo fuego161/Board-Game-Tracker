@@ -12,7 +12,11 @@
 
     <div class="column column-80">
         <div class="board-games view content">
+
+            <?= $this->Html->link(__('Add To Collection'), ['action' => '#'], ['class' => 'button float-right']) ?>
+
             <h3><?= h($boardGame->title) ?></h3>
+
             <table>
                 <tr>
                     <th><?= __('Title') ?></th>
