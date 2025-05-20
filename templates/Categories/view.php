@@ -41,37 +41,27 @@
                 <div class="table-responsive">
                     <table>
                         <tr>
-                            <th><?= __('Id') ?></th>
-                            <th><?= __('Entry Creator') ?></th>
                             <th><?= __('Title') ?></th>
-                            <th><?= __('Slug') ?></th>
                             <th><?= __('Publisher') ?></th>
                             <th><?= __('Min Players') ?></th>
                             <th><?= __('Max Players') ?></th>
-                            <th><?= __('Created') ?></th>
-                            <th><?= __('Modified') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                         <?php foreach ($category->board_games as $boardGame) : ?>
                         <tr>
-                            <td><?= h($boardGame->id) ?></td>
-                            <td><?= h($boardGame->entry_creator) ?></td>
                             <td><?= h($boardGame->title) ?></td>
-                            <td><?= h($boardGame->slug) ?></td>
                             <td><?= h($boardGame->publisher) ?></td>
                             <td><?= h($boardGame->min_players) ?></td>
                             <td><?= h($boardGame->max_players) ?></td>
-                            <td><?= h($boardGame->created) ?></td>
-                            <td><?= h($boardGame->modified) ?></td>
                             <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'BoardGames', 'action' => 'view', $boardGame->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'BoardGames', 'action' => 'edit', $boardGame->id]) ?>
+                                <?= $this->Html->link(__('View'), ['controller' => 'BoardGames', 'action' => 'view', $boardGame->slug]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'BoardGames', 'action' => 'edit', $boardGame->slug]) ?>
                                 <?= $this->Form->postLink(
                                     __('Delete'),
-                                    ['controller' => 'BoardGames', 'action' => 'delete', $boardGame->id],
+                                    ['controller' => 'BoardGames', 'action' => 'delete', $boardGame->slug],
                                     [
                                         'method' => 'delete',
-                                        'confirm' => __('Are you sure you want to delete # {0}?', $boardGame->id),
+                                        'confirm' => __('Are you sure you want to delete # {0}?', $boardGame->slug),
                                     ]
                                 ) ?>
                             </td>
