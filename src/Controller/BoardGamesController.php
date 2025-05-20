@@ -58,4 +58,19 @@ class BoardGamesController extends AppController
 
         $this->set(compact('boardGame'));
     }
+
+    public function delete($slug)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+
+        $boardGame = $this->BoardGames->findBySlug($slug)->firstOrFail();
+
+        // TODO: Make admin only
+        if ($this->BoardGames->delete($boardGame)) {
+
+            $this->Flash->success(__('The board game "{0}" has been deleted.', $boardGame->title));
+
+            return $this->redirect(['action' => 'index']);
+        }
+    }
 }
