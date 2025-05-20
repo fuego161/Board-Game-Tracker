@@ -1,3 +1,26 @@
+# [Board Game Tracker](https://tckr.uk/bgt/)
+
+This is a small project built after completing the CakePHP CMS tutorial, aimed at deepening my understanding of CakePHP and its core concepts.
+
+The application allows users to create and browse board game entries, each containing basic details. Admin users and the original author of a listing can edit or update their entries.
+
+Games can be associated with one or more categories, making it easier to group and filter content.
+
+## Planned Features (not implemented):
+
+With more time, I would have liked to:
+
+- Add a personal collection feature for users to track games they own or want
+- Enable per-user game pages, showing:
+  - Ownership status (owned / wish list)
+  - Personal notes and ratings
+  - Favourite games
+- Extend board game listings to include:
+  - Number of users who own or favourited the game
+  - Average rating across all users
+
+----
+
 # CakePHP Application Skeleton
 
 ![Build Status](https://github.com/cakephp/app/actions/workflows/ci.yml/badge.svg?branch=5.x)
