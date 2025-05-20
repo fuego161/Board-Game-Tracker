@@ -5,8 +5,3 @@
 .collection-add-row {
     text-align: right;
 }
-
-.categories th:last-of-type,
-.categories td:last-of-type {
-    text-align: right;
-}
