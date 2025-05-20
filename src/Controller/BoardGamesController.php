@@ -12,6 +12,7 @@ class BoardGamesController extends AppController
 
     public function index()
     {
+        $this->Authorization->skipAuthorization();
         $boardGames = $this->paginate($this->BoardGames->find()->contain('Categories'));
 
         $this->set(compact('boardGames'));
@@ -19,6 +20,7 @@ class BoardGamesController extends AppController
 
     public function view($slug = null)
     {
+        $this->Authorization->skipAuthorization();
         $boardGame = $this->BoardGames
             ->findBySlug($slug)
             ->contain('Categories')
@@ -30,6 +32,8 @@ class BoardGamesController extends AppController
     public function add()
     {
         $boardGame = $this->BoardGames->newEmptyEntity();
+
+        $this->Authorization->authorize($boardGame);
 
         if ($this->request->is('post')) {
             $boardGame = $this->BoardGames->patchEntity($boardGame, $this->request->getData());
@@ -58,6 +62,8 @@ class BoardGamesController extends AppController
             ->contain('Categories')
             ->firstOrFail();
 
+        $this->Authorization->authorize($boardGame);
+
         if ($this->request->is(['post', 'put'])) {
             $boardGame = $this->BoardGames->patchEntity($boardGame, $this->request->getData());
 
@@ -79,6 +85,8 @@ class BoardGamesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
 
         $boardGame = $this->BoardGames->findBySlug($slug)->firstOrFail();
+
+        $this->Authorization->authorize($boardGame);
 
         // TODO: Make admin only
         if ($this->BoardGames->delete($boardGame)) {
