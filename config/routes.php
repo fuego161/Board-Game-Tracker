@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Routes configuration.
  *
@@ -56,6 +57,8 @@ return function (RouteBuilder $routes): void {
          * to use (in this case, templates/Pages/home.php)...
          */
         $builder->connect('/', ['controller' => 'BoardGames', 'action' => 'index']);
+
+        $builder->connect('/games/*', ['controller' => 'BoardGames', 'action' => 'view']);
 
         /*
          * ...and connect the rest of 'Pages' controller's URLs.
