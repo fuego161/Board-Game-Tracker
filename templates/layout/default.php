@@ -40,6 +40,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </div>
         <div class="top-nav-links">
             <?= $this->Html->link('Board Games', ['controller' => 'BoardGames', 'action' => 'index']); ?>
+            <?= $this->Html->link('Categories', ['controller' => 'Categories', 'action' => 'index']); ?>
             <?= $this->Html->link('My Account', ['action' => 'index']); ?>
         </div>
     </nav>
