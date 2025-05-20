@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                     <th><?= __('Publisher') ?></th>
-                    <td><?= h($boardGame->title) ?></td>
+                    <td><?= h($boardGame->publisher) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Player Count') ?></th>
@@ -33,6 +33,10 @@
                             h($boardGame->min_players) :
                             h($boardGame->min_players) . ' - ' . h($boardGame->max_players); ?>
                     </td>
+                </tr>
+                <tr>
+                    <th><?= __('Categories') ?></th>
+                    <td><?= h($boardGame->category_string); ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Created') ?></th>
