@@ -38,8 +38,9 @@ class BoardGamesController extends AppController
         if ($this->request->is('post')) {
             $boardGame = $this->BoardGames->patchEntity($boardGame, $this->request->getData());
 
-            // TODO: Remove hardcode
-            $boardGame->entry_creator = 1;
+            // Get the identity from the request
+            $user = $this->request->getAttribute('identity');
+            $boardGame->entry_creator = $user->getOriginalData()->id;
 
             if ($this->BoardGames->save($boardGame)) {
                 $this->Flash->success(__('Board game added!'));
@@ -62,7 +63,15 @@ class BoardGamesController extends AppController
             ->contain('Categories')
             ->firstOrFail();
 
-        $this->Authorization->authorize($boardGame);
+        // Get the identity from the request
+        $user = $this->request->getAttribute('identity');
+
+        $authCheck = $user->can('edit', $boardGame);
+
+        if (!$authCheck) {
+            $this->Flash->error(__('Can only edit if you created the entry or have admin privileges'));
+            return $this->redirect(['action' => 'view', $boardGame->slug]);
+        }
 
         if ($this->request->is(['post', 'put'])) {
             $boardGame = $this->BoardGames->patchEntity($boardGame, $this->request->getData());
@@ -86,9 +95,16 @@ class BoardGamesController extends AppController
 
         $boardGame = $this->BoardGames->findBySlug($slug)->firstOrFail();
 
-        $this->Authorization->authorize($boardGame);
+        // Get the identity from the request
+        $user = $this->request->getAttribute('identity');
 
-        // TODO: Make admin only
+        $authCheck = $user->can('delete', $boardGame);
+
+        if (!$authCheck) {
+            $this->Flash->error(__('Only Admin may delete board games'));
+            return $this->redirect(['action' => 'view', $boardGame->slug]);
+        }
+
         if ($this->BoardGames->delete($boardGame)) {
 
             $this->Flash->success(__('The board game "{0}" has been deleted.', $boardGame->title));
