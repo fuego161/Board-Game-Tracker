@@ -1,52 +1,52 @@
-<h1>Board Games!</h1>
+<div class="board-games index content">
 
-<table class="board-games">
+    <?= $this->Html->link(__('Add New Board Game'), ['action' => 'add'], ['class' => 'button float-right']) ?>
 
-    <tr>
-        <th>Title</th>
-        <th>Publisher</th>
-        <th>Player Count</th>
-        <th>Categories</th>
-        <th>&nbsp;</th>
-    </tr>
+    <h3><?= __('Board Games') ?></h3>
 
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th><?= $this->Paginator->sort('title') ?></th>
+                    <th>Publisher</th>
+                    <th>Player Count</th>
+                    <th>Categories</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($boardGames as $boardGame): ?>
+                <tr>
+                    <td>
+                        <?= $this->Html->link(h($boardGame->title), ['action' => 'view', $boardGame->slug]); ?>
+                    </td>
+                    <td>
+                        <?= h($boardGame->publisher); ?>
+                    </td>
+                    <td>
+                        <?=
+                            $boardGame->min_players === $boardGame->max_players ?
+                            h($boardGame->min_players) :
+                            h($boardGame->min_players) . ' - ' . h($boardGame->max_players); ?>
+                    </td>
+                    <td>
+                        <?= h($boardGame->category_string); ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 
-    <?php foreach ($boardGames as $boardGame): ?>
-        <tr>
-            <td>
-                <?= $this->Html->link($boardGame->title, ['action' => 'view', $boardGame->slug]); ?>
-            </td>
-            <td>
-                <?= h($boardGame->publisher); ?>
-            </td>
-            <td>
-                <?= h($boardGame->min_players) . ' - ' . h($boardGame->max_players); ?>
-            </td>
-            <td>
-                <?= h($boardGame->category_string); ?>
-            </td>
-            <td class="collection-add-row">
-                <?= $this->Html->link(
-                    'Add to Collection',
-                    ['action' => 'add'],
-                    ['class' => 'button button-clear']
-                ); ?>
-            </td>
-        </tr>
-    <?php endforeach; ?>
+    <div class="paginator">
+        <ul class="pagination">
+            <?= $this->Paginator->first('<< ' . __('first')) ?>
+            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->numbers() ?>
+            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->last(__('last') . ' >>') ?>
+        </ul>
+        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+    </div>
 
-    <tr>
-        <td>
-            <?= $this->Html->link(
-                'Add a Board Game',
-                ['action' => 'add'],
-                ['class' => 'button']
-            ); ?>
-        </td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-    </tr>
-
-</table>
+</div>
