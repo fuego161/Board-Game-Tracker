@@ -21,7 +21,38 @@ class CategoriesSeed extends BaseSeed
      */
     public function run(): void
     {
-        $data = [];
+        $data = [
+            [
+                'title' => 'Deck Building',
+                'created' => date('Y-m-d H:i:s'),
+                'modified' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'title' => 'Card Game',
+                'created' => date('Y-m-d H:i:s'),
+                'modified' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'title' => 'Strategy',
+                'created' => date('Y-m-d H:i:s'),
+                'modified' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'title' => 'Party',
+                'created' => date('Y-m-d H:i:s'),
+                'modified' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'title' => 'Kids',
+                'created' => date('Y-m-d H:i:s'),
+                'modified' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'title' => 'Expansion',
+                'created' => date('Y-m-d H:i:s'),
+                'modified' => date('Y-m-d H:i:s'),
+            ],
+        ];
 
         $table = $this->table('categories');
         $table->insert($data)->save();
