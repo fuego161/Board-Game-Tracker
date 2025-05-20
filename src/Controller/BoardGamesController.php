@@ -30,7 +30,26 @@ class BoardGamesController extends AppController
             $boardGame->entry_creator = 1;
 
             if ($this->BoardGames->save($boardGame)) {
-                $this->Flash->error(__('Board game added!'));
+                $this->Flash->success(__('Board game added!'));
+
+                return $this->redirect(['action' => 'view', $boardGame->slug]);
+            }
+
+            $this->Flash->error(__('Unable to add board game'));
+        }
+
+        $this->set(compact('boardGame'));
+    }
+
+    public function edit($slug)
+    {
+        $boardGame = $this->BoardGames->findBySlug($slug)->firstOrFail();
+
+        if ($this->request->is(['post', 'put'])) {
+            $boardGame = $this->BoardGames->patchEntity($boardGame, $this->request->getData());
+
+            if ($this->BoardGames->save($boardGame)) {
+                $this->Flash->success(__('Board game update!'));
 
                 return $this->redirect(['action' => 'view', $boardGame->slug]);
             }
